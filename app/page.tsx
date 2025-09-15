@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 import Link from 'next/link'
-import React, { JSX, ReactNode, useEffect, useRef } from 'react'
+import React, { JSX, useEffect, useRef } from 'react'
 import { Github, Activity, BarChart2, Filter, User } from "@deemlol/next-icons";
 import gsap from 'gsap'
 
@@ -11,7 +11,7 @@ import Analytics from '@/components/ui/Analytics';
 
 
 type AnalyticsItem = {
-  logo: ReactNode | string;
+  logo: React.ReactNode | string;
   numbers: number | string;
   data: string;
 };
@@ -19,7 +19,7 @@ type AnalyticsItem = {
 
 
 
-function page() {
+export default function Page(): JSX.Element {
 
   const cursorRef = useRef<HTMLDivElement | null>(null)
 
@@ -35,12 +35,12 @@ function page() {
       data: "Daily active users"
     },
     {
-      logo: <Filter  size={30} color="#FFFFFF" />,
+      logo: <Filter size={30} color="#FFFFFF" />,
       numbers: 1234,
       data: "Invoices Generated so far"
     },
     {
-      logo: <User  size={30} color="#FFFFFF" />,
+      logo: <User size={30} color="#FFFFFF" />,
       numbers: 123,
       data: "Subscribed Users"
     }
@@ -100,14 +100,28 @@ function page() {
   }, [])
 
   return (
-    <div className='min-h-[100vh] dark bg-background text-foreground relative'>
+    <div className='min-h-[100vh] dark bg-background text-foreground relative  '>
       <div
         ref={cursorRef}
-        className="fixed top-0 left-0 w-6 h-6 bg-zinc-300 mix-blend-difference rounded-full pointer-events-none z-50"
+        className="fixed top-0 -translate-[50%] left-0 w-6 h-6 bg-zinc-300 mix-blend-difference rounded-full pointer-events-none z-50"
       />
 
-      <div className='min-h-screen px-4 max-w-4xl mx-auto border relative'>
-        <nav className='py-4 flex justify-between items-center border-b-2'>
+     
+
+      <div className="min-h-screen px-4 max-w-4xl mx-auto border relative ">
+
+        <Image
+        src="/invoice_bg.jpg"
+        alt="Background"
+        fill
+        priority
+        className=" object-cover object-center inset-0 z-0"
+      />
+
+      
+
+
+        <nav className='py-4 flex justify-between items-center relative border-b-2 z-10'>
           <Link href="/" >Invoicer</Link>
           <div className='flex items-center gap-4'>
             <Link href="/about">About</Link>
@@ -118,7 +132,7 @@ function page() {
           </div>
         </nav>
 
-        <div className='w-full min-h-full flex justify-between items-center  mt-30'>
+        <div className='w-full min-h-full flex justify-between items-start mt-30 relative z-10 '>
           <div className=''>
             <p className='font-bold text-5xl leading-10 text-zinc-200'>Invoicer,<br /> <span className='text-4xl'>A platform to generate <br />  high quality Invoices.</span></p>
             <p className='font-base mt-2 text-zinc-500'>Simple Invoice generator with fast, secure and reliable invoice pdfs.</p>
@@ -131,10 +145,10 @@ function page() {
               </Link>
             </div>
           </div>
-          <Image width={300} height={300} className='mix-blend-difference' alt='invoice_img' src="/invoice_img.png" />
+          <Image width={300} height={300} className='-mt-10' alt='invoice_img' src="/invoice_img.png" />
         </div>
 
-        <div className=' w-full h-[10vw] grid-cols-4 grid gap-2 grid-rows-1 mt-10'>
+        <div className=' w-full h-[10vw] grid-cols-4 grid gap-2 grid-rows-1 mt-20 relative z-10 '>
           {analyticsData.map((item, index) =>
             <Analytics key={index} logo={item.logo} numbers={item.numbers} data={item.data} />
           )}
@@ -144,4 +158,3 @@ function page() {
   )
 }
 
-export default page
